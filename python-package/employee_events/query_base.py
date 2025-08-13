@@ -33,8 +33,17 @@ class QueryBase(QueryMixin):
         # Use f-string formatting to set the name
         # of id columns used for joining
         # order by the event_date column
-        sql_query = f"SELECT event_date, SUM(positive_events), SUM(negative_events) FROM {self.name} WHERE employee_id={id} GROUP BY event_date"
-        return self.pandas_query(sql_query)   
+        query = f"""
+                    SELECT 
+                        event_date, 
+                        SUM(positive_events), 
+                        SUM(negative_events)
+                    FROM {self.name}
+                    INNER JOIN employee_events 
+                        ON {self.name}.employee_id=employee_events.employee_id
+                    WHERE {self.name}.employee_id={id} GROUP BY event_date
+                """
+        return self.pandas_query(query)   
     
 
     # Define a `notes` method that receives an id argument
@@ -48,5 +57,5 @@ class QueryBase(QueryMixin):
         # with f-string formatting
         # so the query returns the notes
         # for the table name in the `name` class attribute
-        query = f"SELECT note_date, note FROM notes"
-
+        query = f"SELECT note_date, note FROM notes WHERE employee_id={id}"
+        return self.pandas_query(query) 
