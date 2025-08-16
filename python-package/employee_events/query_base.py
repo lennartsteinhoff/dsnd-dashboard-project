@@ -1,5 +1,5 @@
 # Import any dependencies needed to execute sql queries
-from sql_execution import QueryMixin
+from .sql_execution import QueryMixin
 
 import pandas as pd
 
@@ -36,8 +36,8 @@ class QueryBase(QueryMixin):
         query = f"""
                     SELECT 
                         event_date, 
-                        SUM(positive_events), 
-                        SUM(negative_events)
+                        SUM(positive_events) as positive_events, 
+                        SUM(negative_events) as negative_events
                     FROM {self.name}
                     INNER JOIN employee_events 
                         ON {self.name}.employee_id=employee_events.employee_id

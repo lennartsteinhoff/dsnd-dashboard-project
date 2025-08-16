@@ -1,5 +1,5 @@
 # Import the QueryBase class
-from query_base import QueryBase
+from .query_base import QueryBase
 
 # Import dependencies for sql execution
 #### YOUR CODE HERE
@@ -24,7 +24,7 @@ class Team(QueryBase):
         # the team_name and team_id columns
         # from the team table for all teams
         # in the database
-        query = "SELECT team_name, team_id FROM {self.name}"
+        query = f"SELECT team_name, team_id FROM {self.name}"
         return self.query(query)
 
     # Define a `username` method
@@ -39,7 +39,7 @@ class Team(QueryBase):
         # Use f-string formatting and a WHERE filter
         # to only return the team name related to
         # the ID argument
-        query = "SELECT team_name FROM {self.name} WHERE employee_id={id}"
+        query = f"SELECT team_name FROM {self.name} WHERE employee_id={id}"
         return self.query(query)
 
 
