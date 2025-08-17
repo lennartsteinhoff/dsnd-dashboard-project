@@ -102,11 +102,12 @@ class LineChart(MatplotlibViz):
         # Initialize a pandas subplot
         # and assign the figure and axis
         # to variables
-        ax =  df.plot(subplots=True, layout=(3,1), figsize=(6,8))
+        fig, ax = plt.subplots(figsize=(8, 5))
+        #df.plot(subplots=True, layout=(3,1), figsize=(6,8))
         
         # call the .plot method for the
         # cumulative counts dataframe
-        df_cum.plot()
+        df_cum.plot(ax=ax)
         
         # pass the axis variable
         # to the `.set_axis_styling`
@@ -115,10 +116,13 @@ class LineChart(MatplotlibViz):
         # the border color and font color to black. 
         # Reference the base_components/matplotlib_viz file 
         # to inspect the supported keyword arguments
-        #self.set_axis_styling(ax)
+        self.set_axis_styling(ax, bordercolor='black', fontcolor='black')
         
         # Set title and labels for x and y axis
-        #### YOUR CODE HERE
+        ax.set_title('Events', fontsize=20)
+        ax.set_xlabel('Date')
+        ax.set_ylabel('Event Count')
+
 
 
 # Create a subclass of base_components/MatplotlibViz
@@ -160,15 +164,11 @@ class BarChart(MatplotlibViz):
         import numpy as np
         pred = np.mean(second_column)
 
-        #data = { "x": [1,2,3,4,5], 'y': [1,3,4,3,5]}
-        #df = pd.DataFrame(data)
-        #print(df.columns)
         
         # Initialize a matplotlib subplot
-        #ax = df.plot(subplots=True, layout=(3,1), figsize=(10, 5))
-        #ax = df.plot(subplots=True, layout=(3,1), figsize=(6,8))
-        #ax = df.plot(x='x', y='y')
-        ax = plt.subplot()
+
+        fig, ax = plt.subplots(figsize=(8, 5))
+
         # Run the following code unchanged
         ax.barh([''], [pred])
         ax.set_xlim(0, 1)
@@ -199,7 +199,6 @@ class NotesTable(DataTable):
     # Overwrite the `component_data` method
     # using the same parameters as the parent class
     def component_data(self, entity_id, model):
-        #return super().component_data(entity_id, model)
         
         # Using the model and entity_id arguments
         # pass the entity_id to the model's .notes 
